@@ -37,3 +37,11 @@ Quick start
     python manage.py makemessages -i venv --all
 
 6. Visit the ``/accounts/`` URL to access user account.
+
+
+Notes:
+--------
+
+- static/notify :: Ref: https://github.com/deviserops/notify
+- static/justify :: Ref: https://github.com/deviserops/justify
+- static/images
