@@ -1,0 +1,18 @@
+{% load static %}
+<nav class="navbar navbar-light bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand ms-5" href="/">
+            <img src="{% static ac_logo %}"
+                 class="me-2" height="20" alt="Logo" loading="lazy" decoding="async"/>
+        </a>
+        <!-- Right elements -->
+        <div class="d-flex align-items-center me-5">
+            <!-- Icon -->
+            <a class="me-3" href=""><span class="navbar-text">{{ user.username }}</span></a>
+            <a class="me-3" href="{% url 'logout' %}" data-method="post">
+                <i class="fas fa-sign-out-alt navbar-text"></i>
+            </a>
+        </div>
+        <!-- Right elements -->
+    </div>
+</nav>

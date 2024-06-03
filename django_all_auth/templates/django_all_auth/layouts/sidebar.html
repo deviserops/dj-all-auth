@@ -1,0 +1,26 @@
+{% load static %}
+<nav id="sidebarMenu" class="sidebar">
+    <div class="position-sticky">
+        <div class="list-group list-group-flush">
+            <!-- Collapse 1 -->
+            <a href="{% url '__account' %}" class="list-group-item py-4 text-center border-0 text-white">
+                <span class="fs-1 fw-light">{{ _('account_management')|title }}</span>
+            </a>
+            <!-- Collapsed content -->
+            <ul id="collapseExample1" class="collapse show list-group list-group-flush">
+                {% url '__account_profile_index' as ac__account_profile_index %}
+                <li class="list-group-item border-0 pe-0 {% if request.path == ac__account_profile_index %} active {% endif %}">
+                    <a href="{% url '__account_profile_index' %}" class="text-white stretched-link fs-5">
+                        <i class="fa-solid fa-user me-2"></i>{{ _('account_information') }}
+                    </a>
+                </li>
+                {% url '__account_security_index' as ac__account_security_index %}
+                <li class="list-group-item border-0 pe-0 {% if request.path == ac__account_security_index %} active {% endif %}">
+                    <a href="{% url '__account_security_index' %}" class="text-white stretched-link fs-5">
+                        <i class="fa-solid fa-gear me-2"></i>{{ _('security') }}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

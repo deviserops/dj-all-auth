@@ -1,0 +1,37 @@
+{% extends ac_app_name|add:'/auth/base.html' %}
+{% block content %}
+<div class="d-flex align-items-center pt-xl-5 px-5 ms-xl-4 pt-5 pt-xl-0 mt-xl-5">
+    <form style="width: 23rem;" method="post">
+        {% csrf_token %}
+        <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">{{_('login')}}</h3>
+        {% if form.non_field_errors %}
+        <div class="alert alert-danger" role="alert">
+            {{ form.non_field_errors }}
+        </div>
+        {% endif %}
+        {% include ac_app_name|add:'/layouts/flash_messages.html' %}
+        <div class="form-outline mb-4">
+            <input type="text" id="id_username" name="username"
+                   class="form-control form-control-lg"
+                   autocomplete="username" value="{{form.username.value|default_if_none:''}}"/>
+            <label class="form-label" for="id_username">{{ form.username.label }}</label>
+        </div>
+        <div class="form-outline mb-4">
+            <input type="password" id="id_password" name="password"
+                   class="form-control form-control-lg"
+                   autocomplete="current-password" required/>
+            <label class="form-label" for="id_password">{{ form.password.label }}</label>
+        </div>
+        <div class="pt-1 mb-4">
+            <button class="btn btn-info btn-lg btn-block" type="submit">{{_('login')}}</button>
+        </div>
+        <p class="small mb-0 mx-0 pb-lg-0"><a class="text-muted" href="{% url 'password_reset' %}">{{_('forgot_password')}}</a>
+        </p>
+        <p class="small mb-2 mt-0 mx-0 pb-lg-2"><a class="text-muted" href="{% url '__activate_request' %}">{{_('request_account_activation')}}</a>
+        </p>
+        <p class="mx-0">{{_('dont_have_an_account')}}&nbsp;<a href="{% url '__account_register' %}"
+                                                              class="link-info">{{_('register')}}</a>
+        </p>
+    </form>
+</div>
+{% endblock %}

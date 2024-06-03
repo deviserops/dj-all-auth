@@ -1,0 +1,26 @@
+{% extends ac_layout %}
+{% block content %}
+<div class="container mt-5 px-lg-5">
+    <span class="fs-1 fw-light">{{ _('security')|title }}</span>
+    <div class="card h-100 mb-3">
+        <div class="card-body text-start">
+            <h5 class="fs-4 fw-normal mb-3 d-flex justify-content-between align-items-center">
+                {{ _('password') }}
+                <a href="{% url 'password_reset' %}"
+                   data-confirm-message="{{ _('you_will_redirect_to_password_reset') }}"
+                   data-method="post" class="btn btn-sm btn-info" data-mdb-ripple-init>
+                    {{ _('change') }}
+                </a>
+            </h5>
+            {% for i in 'xxxxx' %}&nbsp;<i class="fas fa-circle text-secondary fs-6"></i>{% endfor %}
+        </div>
+    </div>
+    <div class="card h-100 mb-3">
+        <div class="card-body text-start">
+            <h5 class="fs-4 fw-normal mb-3">
+                {{ _('login_history') }}
+            </h5>
+        </div>
+    </div>
+</div>
+{% endblock %}
