@@ -1,7 +1,7 @@
 from django.conf import settings
-from .apps import DjangoAllAuthConfig
+from .apps import DjAllAuthConfig
 
-config = DjangoAllAuthConfig
+config = DjAllAuthConfig
 base_template = config.name
 
 __ac_logo = settings.ACCOUNT.get('LOGO') if settings.ACCOUNT.get('LOGO') else 'logo.webp'
