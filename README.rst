@@ -1,6 +1,6 @@
-============
+===============
 Django All Auth
-============
+===============
 
 Django all auth includes all account, including django default, OAuth (Google, Discord, Twitch), openId (Steam).
 
