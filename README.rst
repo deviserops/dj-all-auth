@@ -28,6 +28,34 @@ Quick start
     'dj_all_auth.context_processors.__config'
 
 
+4. Add dj_all_auth settings to settings.py::
+
+    DJ_ALL_AUTH = {
+        'LOGO': 'images/logo.webp',
+        'CONNECTIONS': {
+            # name of the url that will be used once OAuth is completed
+            'REDIRECT_URI_NAME': None,
+            'GOOGLE': {
+                # Set {domain-without-local}/account/google/authenticated to twitch redirect url
+                'CLIENT_ID': os.getenv('GOOGLE_CLIENT_ID') if os.getenv('GOOGLE_CLIENT_ID') else None,
+                'CLIENT_SECRET': os.getenv('GOOGLE_CLIENT_SECRET') if os.getenv('GOOGLE_CLIENT_SECRET') else None,
+                'SCOPE': ['openid', 'email', 'https://www.googleapis.com/auth/drive.file']
+            },
+            'TWITCH': {
+                # Set {domain-without-local}/account/twitch/authenticated to twitch redirect url
+                'CLIENT_ID': os.getenv('TWITCH_CLIENT_ID') if os.getenv('TWITCH_CLIENT_ID') else None,
+                'CLIENT_SECRET': os.getenv('TWITCH_CLIENT_SECRET') if os.getenv('TWITCH_CLIENT_SECRET') else None,
+                'SCOPE': ['user:read:email', 'user:read:broadcast']
+            },
+            'DISCORD': {
+                # Set {domain-without-local}/account/discord/authenticated to discord redirect url
+                'CLIENT_ID': os.getenv('DISCORD_CLIENT_ID') if os.getenv('DISCORD_CLIENT_ID') else None,
+                'CLIENT_SECRET': os.getenv('DISCORD_CLIENT_SECRET') if os.getenv('DISCORD_CLIENT_SECRET') else None,
+                'SCOPE': ['identify', 'email', 'connections', 'guilds', 'guilds.join']
+            }
+        }
+    }
+
 4. To create models run::
 
     python manage.py migrate

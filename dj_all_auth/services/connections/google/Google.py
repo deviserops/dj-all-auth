@@ -17,7 +17,7 @@ from django.contrib.sites.shortcuts import get_current_site
 class Google:
 
     def __init__(self):
-        config = settings.ACCOUNT.get('CONNECTIONS').get('GOOGLE', None) if settings.ACCOUNT.get(
+        config = settings.DJ_ALL_AUTH.get('CONNECTIONS').get('GOOGLE', None) if settings.DJ_ALL_AUTH.get(
             'CONNECTIONS') else None
 
         self.client_id = config.get('CLIENT_ID', None) if config else None

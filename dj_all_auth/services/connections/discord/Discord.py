@@ -15,8 +15,8 @@ from django.contrib.sites.shortcuts import get_current_site
 
 class Discord:
     def __init__(self):
-        config = settings.ACCOUNT.get('CONNECTIONS').get('DISCORD', None) if settings.ACCOUNT.get(
-            'CONNECTIONS') else settings.ACCOUNT.get('CONNECTIONS')
+        config = settings.DJ_ALL_AUTH.get('CONNECTIONS').get('DISCORD', None) if settings.DJ_ALL_AUTH.get(
+            'CONNECTIONS') else settings.DJ_ALL_AUTH.get('CONNECTIONS')
 
         self.client_id = config.get('CLIENT_ID', None) if config else None
         self.client_secret = config.get('CLIENT_SECRET', None) if config else None
