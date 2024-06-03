@@ -15,14 +15,14 @@
             <div class="col-sm-6 text-black">
                 <div class="px-5 ms-xl-4">
                     <a href="/" class="me-3 pt-5 mt-xl-4 d-flex align-items-center">
-                        <img src="{% static 'images/logo.webp' %}" loading="lazy" decoding="async" width="80"/>
+                        <img src="{% static ac_logo %}" loading="lazy" decoding="async" width="80"/>
                         <span class="h1 fw-bold px-2">{{request.get_host}}</span>
                     </a>
                 </div>
                 {% block content %} {% endblock %}
             </div>
             <div class="col-sm-6 px-0 d-none d-sm-block">
-                <img src="{% static '/images/loginRegister.webp' %}"
+                <img src="{% static ac_app_name|add:'/images/loginRegister.webp' %}"
                      loading="lazy" decoding="async"
                      alt="{{ _('login_image') }}" class="w-100 vh-100"
                      style="object-fit: cover; object-position: left;">

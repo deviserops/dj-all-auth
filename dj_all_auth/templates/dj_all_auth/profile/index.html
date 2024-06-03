@@ -6,7 +6,7 @@
     <div class="card h-100 mb-3">
         <div class="card-body text-start">
             <div class="d-flex justify-content-start align-items-center">
-                <img class="img-thumbnail" src="{% static 'images/default.webp' %}"
+                <img class="img-thumbnail" src="{% static ac_app_name|add:'/images/default.webp' %}"
                      loading="lazy" decoding="async" width="80"/>
                 <div class="ms-3">
                     <span class="text-muted">{{ _('username')|title }}</span>
