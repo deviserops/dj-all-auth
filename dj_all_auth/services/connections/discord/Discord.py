@@ -20,15 +20,22 @@ class Discord:
 
         self.client_id = config.get('CLIENT_ID', None) if config else None
         self.client_secret = config.get('CLIENT_SECRET', None) if config else None
-        self.scope = config.get('SCOPE', ['identify', 'email', 'connections', 'guilds', 'guilds.join']) if config else [
-            'identify', 'email', 'connections',
-            'guilds', 'guilds.join']
+
+        # set scopes
+        self.default_scope = ['identify', 'email', 'connections', 'guilds', 'guilds.join']
+        self.scope = config.get('SCOPE', self.default_scope) if config else self.default_scope
+        self.update_scope()
 
         self.authentication_url = f'https://discord.com/oauth2/authorize'
         self.oauth2_host = 'discord.com'
         self.oauth2_token = '/api/oauth2/token'
         self.oauth2_revoke = '/oauth2/token/revoke'
         self.api_status = None
+        
+    def update_scope(self):
+        for scope in self.default_scope:
+            if scope not in self.scope:
+                self.scope.append(scope)
 
     def get_domain(self, request):
         current_site = get_current_site(request)
