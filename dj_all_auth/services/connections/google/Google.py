@@ -22,13 +22,22 @@ class Google:
 
         self.client_id = config.get('CLIENT_ID', None) if config else None
         self.client_secret = config.get('CLIENT_SECRET', None) if config else None
-        self.scope = config.get('SCOPE', ['openid', 'email']) if config else ['openid', 'email']
+
+        # set scopes
+        self.default_scope = ['openid', 'email']
+        self.scope = config.get('SCOPE', self.default_scope) if config else self.default_scope
+        self.update_scope()
 
         self.authentication_url = f'https://accounts.google.com/o/oauth2/v2/auth'
         self.oauth2_host = 'oauth2.googleapis.com'
         self.oauth2_token = '/token'
         self.oauth2_revoke = '/revoke'
         self.api_status = None
+        
+    def update_scope(self):
+        for scope in self.default_scope:
+            if scope not in self.scope:
+                self.scope.append(scope)
 
     def get_domain(self, request):
         current_site = get_current_site(request)
