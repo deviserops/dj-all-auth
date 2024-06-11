@@ -20,7 +20,11 @@ class Twitch:
 
         self.client_id = config.get('CLIENT_ID', None) if config else None
         self.client_secret = config.get('CLIENT_SECRET', None) if config else None
-        self.scope = config.get('SCOPE', ['user:read:email']) if config else ['user:read:email']
+
+        # set scopes
+        self.default_scope = ['user:read:email']
+        self.scope = config.get('SCOPE', self.default_scope) if config else self.default_scope
+        self.update_scope()
 
         self.authentication_url = f'https://id.twitch.tv/oauth2/authorize'
         self.oauth2_host = 'id.twitch.tv'
@@ -28,6 +32,11 @@ class Twitch:
         self.oauth2_validate = '/oauth2/validate'
         self.oauth2_revoke = '/oauth2/revoke'
         self.api_status = None
+        
+    def update_scope(self):
+        for scope in self.default_scope:
+            if scope not in self.scope:
+                self.scope.append(scope)
 
     def get_domain(self, request):
         current_site = get_current_site(request)
