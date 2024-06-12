@@ -12,28 +12,39 @@
     <div class="container-fluid">
         <div class="row">
             <!--Content-->
-            <div class="col-sm-6 text-black">
-                <div class="px-5 ms-xl-4">
-                    <a href="/" class="me-3 pt-5 mt-xl-4 d-flex align-items-center">
-                        <img src="{% static ac_logo %}" loading="lazy" decoding="async" width="80"/>
-                        <span class="h1 fw-bold px-2">{{request.get_host}}</span>
-                    </a>
-                </div>
+            <div class="col-sm-6 text-black d-flex flex-column align-items-center justify-content-center"
+                 style="min-height: 100vh;">
+                <a href="/" class="mb-3 pb-3">
+                    <img src="{% static ac_logo %}" loading="lazy" decoding="async" width="80"/>
+                </a>
                 {% block content %} {% endblock %}
-                <hr class="hr hr-blurry"/>
-                <div class="row">
-                    <div class="col-12 d-flex justify-content-center">
-                        <ul class="list-group list-group-light">
-                            <li class="list-group-item border-0 rounded-3 p-0 mb-2">
-                                <a href="{% url '__account_google_authenticate' %}" class="btn btn-info w-100">
-                                    <i class="fa-brands fa-google">&nbsp;</i>
-                                    {{ _('continue_with_google') }}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                </div>
+                {% url 'logout' as ac__account_logout %}
+                {% if request.path != ac__account_logout %}
+                <hr class="hr hr-blurry w-100"/>
+                <ul class="list-group list-group-light">
+                    <!-- Login and Register Button -->
+                    {% url '__account_register' as ac__account_register %}
+                    <li class="list-group-item border-0 rounded-3 p-0 mb-2">
+                        <a href="{% if request.path == ac__account_register %}
+                                {% url 'login' %}
+                                {% else %}
+                                {% url '__account_register' %}
+                                {% endif %}"
+                           class="btn btn-info w-100 d-flex align-items-center justify-content-between">
+                            <i class="fa-regular fa-envelope">&nbsp;</i>
+                            <span>{{ _('continue_with_email') }}</span>
+                        </a>
+                    </li>
+                    <!-- Login with Google -->
+                    <li class="list-group-item border-0 rounded-3 p-0 mb-2">
+                        <a href="{% url '__account_google_authenticate' %}"
+                           class="btn btn-info w-100 d-flex align-items-center justify-content-between">
+                            <i class="fa-brands fa-google">&nbsp;&nbsp;</i>
+                            <span>{{ _('continue_with_google') }}</span>
+                        </a>
+                    </li>
+                </ul>
+                {% endif %}
             </div>
             <div class="col-sm-6 px-0 d-none d-sm-block">
                 <img src="{% static ac_app_name|add:'/images/loginRegister.webp' %}" loading="lazy" decoding="async"
