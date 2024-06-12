@@ -1,6 +1,7 @@
 import os
 import uuid
 import json
+import base64
 import hashlib
 import logging
 import http.client
@@ -33,7 +34,7 @@ class Google:
         self.oauth2_token = '/token'
         self.oauth2_revoke = '/revoke'
         self.api_status = None
-        
+
     def update_scope(self):
         for scope in self.default_scope:
             if scope not in self.scope:
@@ -123,6 +124,25 @@ class Google:
             }
             self.call_api(self.oauth2_host, self.oauth2_revoke, 'POST', payload=payload)
             connection.delete()
+
+    def validate_id_token(self, id_token):
+        if not id_token:
+            return False
+
+        header, payload, signature = id_token.split('.')
+        payload = base64.b64decode(payload)
+        payload = json.loads(payload)
+        iss_list = ['https://accounts.google.com', 'accounts.google.com']
+
+        if payload.get('iss', None) not in iss_list:
+            return False
+
+        if payload.get('aud') != self.client_id:
+            return False
+
+        # TODO add more validation
+
+        return payload.get('email', False)
 
     def call_api(self, host, end_point, method='GET', payload=None, headers=None):
         if headers is None:

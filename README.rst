@@ -31,7 +31,8 @@ Quick start
 4. Add dj_all_auth settings to settings.py::
 
     DJ_ALL_AUTH = {
-        'LOGO': 'images/logo.webp',
+        # static path of logo image
+        'LOGO': None,
         'CONNECTIONS': {
             # name of the url that will be used once OAuth is completed
             'REDIRECT_URI_NAME': None,

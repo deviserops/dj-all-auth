@@ -20,10 +20,23 @@
                     </a>
                 </div>
                 {% block content %} {% endblock %}
+                <hr class="hr hr-blurry"/>
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center">
+                        <ul class="list-group list-group-light">
+                            <li class="list-group-item border-0 rounded-3 p-0 mb-2">
+                                <a href="{% url '__account_google_authenticate' %}" class="btn btn-info w-100">
+                                    <i class="fa-brands fa-google">&nbsp;</i>
+                                    {{ _('continue_with_google') }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
             </div>
             <div class="col-sm-6 px-0 d-none d-sm-block">
-                <img src="{% static ac_app_name|add:'/images/loginRegister.webp' %}"
-                     loading="lazy" decoding="async"
+                <img src="{% static ac_app_name|add:'/images/loginRegister.webp' %}" loading="lazy" decoding="async"
                      alt="{{ _('login_image') }}" class="w-100 vh-100"
                      style="object-fit: cover; object-position: left;">
             </div>
