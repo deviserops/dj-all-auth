@@ -2,7 +2,7 @@
 DJ All Auth
 ===============
 
-`Django all auth` includes all account, including django default, OAuth (Google, Discord, Twitch), openId (Steam).
+``Django all auth`` includes all account, including django default, OAuth (Google, Discord, Twitch), openId (Steam).
 
 Detailed documentation is in the "docs" directory.
 
@@ -67,7 +67,7 @@ Quick start
 
 6. Visit the ``/accounts/`` URL to access user account.
 
-7. To create multilanguage url you need to have `locale/<language-code>` directory, then run::
+7. To create multilanguage url you need to have ``locale/<language-code>`` directory, then run::
 
     python manage.py makemessages --all -i venv
     # then make your changes in your local file after run
