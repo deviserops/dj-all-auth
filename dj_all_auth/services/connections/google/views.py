@@ -9,6 +9,7 @@ from django.views.generic import View
 from django.shortcuts import redirect
 from .models import Google as GoogleModel
 from django.utils.translation import gettext as _
+from django.core.exceptions import FieldDoesNotExist
 from django.utils.decorators import method_decorator
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.decorators import login_required
@@ -55,6 +56,11 @@ class Authenticated(View):
                     payload = {
                         'username': self.clear_username(request, email.split('@')[0].split('+')[0])
                     }
+
+                    # check if email is required
+                    if self.is_field_unique(get_user_model(), 'email'):
+                        payload.update({"email": email})
+
                     user = get_user_model().objects.create_user(**payload)
                     data.update({'user': user})
                 else:
@@ -65,13 +71,20 @@ class Authenticated(View):
                 data.update({
                     'identifier': email,
                 })
-                is_another_account = GoogleModel.objects.filter(email=email).first()
+                is_another_account = GoogleModel.objects.filter(identifier=email).first()
                 if is_another_account:
                     messages.error(self.request, _('account_with_this_connection_already_exist'))
                     return False
                 GoogleModel.objects.update_or_create(user=user, defaults=data)
         except Exception as e:
             logging.error(str(e))
+
+    def is_field_unique(self, model, field_name):
+        try:
+            field = model._meta.get_field(field_name)
+            return field.unique
+        except FieldDoesNotExist:
+            return False
 
     def clear_username(self, request, username):
         sanitized_username = ''.join(char for char in username if char.isalnum())

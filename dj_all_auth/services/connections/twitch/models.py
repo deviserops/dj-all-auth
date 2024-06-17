@@ -4,6 +4,8 @@ from django.contrib.auth import get_user_model
 
 class Twitch(models.Model):
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
+    identifier = models.EmailField(unique=True)
+    id_token = models.TextField()
     token_type = models.CharField(max_length=50)
     access_token = models.CharField(max_length=500)
     refresh_token = models.CharField(max_length=500, default=None, null=True)

@@ -1,6 +1,7 @@
 import os
 import uuid
 import json
+import base64
 import hashlib
 import logging
 import http.client
@@ -23,7 +24,7 @@ class Twitch:
         self.client_secret = config.get('CLIENT_SECRET', None) if config else None
 
         # set scopes
-        self.default_scope = ['user:read:email']
+        self.default_scope = ['openid', 'user:read:email']
         self.scope = config.get('SCOPE', self.default_scope) if config else self.default_scope
         self.update_scope()
 
@@ -66,7 +67,8 @@ class Twitch:
             "state": state
         }
         encoded_param = urlencode(auth_param)
-        return f'{self.authentication_url}?{encoded_param}&redirect_uri={redirect_url}'
+        claims = {"id_token": {"email": None, "nonce": None, "email_verified": None}, "userinfo": {"picture": None}}
+        return f'{self.authentication_url}?{encoded_param}&redirect_uri={redirect_url}&claims={json.dumps(claims)}'
 
     def verify_auth(self, request, redirect_url):
         response = {}
@@ -96,6 +98,25 @@ class Twitch:
             logging.error(str(e))
 
         return response
+
+    def validate_id_token(self, id_token):
+        if not id_token:
+            return False
+
+        header, payload, signature = id_token.split('.')
+        payload = base64.b64decode(payload)
+        payload = json.loads(payload)
+        iss_list = ['https://id.twitch.tv/oauth2', 'id.twitch.tv/oauth2']
+
+        if payload.get('iss', None) not in iss_list:
+            return False
+
+        if payload.get('aud') != self.client_id:
+            return False
+
+        # TODO add more validation
+
+        return payload.get('email', False)
 
     def refresh_token(self, user):
         connection = TwitchModel.objects.filter(user=user).first()
