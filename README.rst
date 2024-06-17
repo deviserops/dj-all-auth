@@ -46,7 +46,7 @@ Quick start
                 # Set {domain-with-above-url-without-locale (en/gb)}/account/twitch/authenticated to twitch redirect url
                 'CLIENT_ID': os.getenv('TWITCH_CLIENT_ID') if os.getenv('TWITCH_CLIENT_ID') else None,
                 'CLIENT_SECRET': os.getenv('TWITCH_CLIENT_SECRET') if os.getenv('TWITCH_CLIENT_SECRET') else None,
-                'SCOPE': ['user:read:email', 'user:read:broadcast']
+                'SCOPE': ['openid', 'user:read:email', 'user:read:broadcast']
             },
             'DISCORD': {
                 # Set {domain-with-above-url-without-locale (en/gb)}/account/discord/authenticated to discord redirect url
