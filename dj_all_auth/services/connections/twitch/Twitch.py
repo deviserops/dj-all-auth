@@ -1,4 +1,5 @@
 import os
+import uuid
 import json
 import hashlib
 import logging
@@ -32,7 +33,7 @@ class Twitch:
         self.oauth2_validate = '/oauth2/validate'
         self.oauth2_revoke = '/oauth2/revoke'
         self.api_status = None
-        
+
     def update_scope(self):
         for scope in self.default_scope:
             if scope not in self.scope:
@@ -52,12 +53,16 @@ class Twitch:
     def auth_url(self, request, redirect_url):
         # set session data
         state = hashlib.sha256(os.urandom(1024)).hexdigest()
+        nonce = str(uuid.uuid4())
         request.session['state'] = state
 
         auth_param = {
+            "force_verify": True,
             "response_type": 'code',
+            "client_secret": self.client_secret,
             "client_id": self.client_id,
             "scope": f'{" ".join(self.scope)}',
+            "nonce": nonce,
             "state": state
         }
         encoded_param = urlencode(auth_param)
