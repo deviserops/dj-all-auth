@@ -34,7 +34,7 @@ class Authenticated(View):
     def save_connection(self, request, payload):
         try:
             discord = Discord()
-            identifier, email = discord.validate_id_token(payload)
+            identifier, email = discord.validate_payload(payload)
 
             if not email:
                 return False

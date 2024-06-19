@@ -35,7 +35,7 @@ class Authenticated(View):
     def save_connection(self, request, payload):
         try:
             google = Google()
-            identifier, email = google.validate_id_token(payload)
+            identifier, email = google.validate_payload(payload)
 
             if not email:
                 return False

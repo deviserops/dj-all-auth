@@ -99,7 +99,7 @@ class Twitch:
 
         return response
 
-    def validate_id_token(self, connection):
+    def validate_payload(self, connection):
         id_token = connection.get('id_token', None)
         if not id_token:
             return False

@@ -35,7 +35,7 @@ class Authenticated(View):
     def save_connection(self, request, payload):
         try:
             twitch = Twitch()
-            identifier, email = twitch.validate_id_token(payload)
+            identifier, email = twitch.validate_payload(payload)
 
             if not email:
                 return False
