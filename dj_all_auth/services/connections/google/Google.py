@@ -97,7 +97,8 @@ class Google:
 
         return response
 
-    def validate_id_token(self, id_token):
+    def validate_id_token(self, connection):
+        id_token = connection.get('id_token', None)
         if not id_token:
             return False
 
@@ -105,6 +106,7 @@ class Google:
         payload = self.decode_base64(payload)
         payload = json.loads(payload)
         iss_list = ['https://accounts.google.com', 'accounts.google.com']
+        identifier = payload.get('sub')
 
         if payload.get('iss', None) not in iss_list:
             return False
@@ -114,7 +116,7 @@ class Google:
 
         # TODO add more validation
 
-        return payload.get('email', False)
+        return identifier, payload.get('email', False)
 
     def decode_base64(self, payload):
         """Decodes a base64 encoded string with proper padding handling."""

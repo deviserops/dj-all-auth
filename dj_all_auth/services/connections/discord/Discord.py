@@ -122,7 +122,7 @@ class Discord:
 
         response = self.call_api(self.oauth2_host, discord_me, 'GET', None, headers)
 
-        return response.get('email', False)
+        return identifier, response.get('email', False)
 
     def decode_base64(self, payload):
         """Decodes a base64 encoded string with proper padding handling."""

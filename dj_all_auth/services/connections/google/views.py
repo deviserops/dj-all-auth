@@ -35,12 +35,13 @@ class Authenticated(View):
     def save_connection(self, request, payload):
         try:
             google = Google()
-            email = google.validate_id_token(payload.get('id_token'))
+            identifier, email = google.validate_id_token(payload)
 
             if not email:
                 return False
 
             data = {
+                'identifier': identifier,
                 'id_token': payload.get('id_token'),
                 'access_token': payload.get('access_token'),
                 'expires_in': payload.get('expires_in'),
@@ -51,7 +52,7 @@ class Authenticated(View):
             user = request.user if not request.user.is_anonymous else None
 
             if not user:
-                is_exist = GoogleModel.objects.filter(identifier=email).first()
+                is_exist = GoogleModel.objects.filter(email=email).first()
                 if not is_exist:
                     payload = {
                         'username': self.clear_username(request, email.split('@')[0].split('+')[0])
@@ -66,13 +67,13 @@ class Authenticated(View):
                     data.update({'user': user})
                 else:
                     user = is_exist.user
-                GoogleModel.objects.update_or_create(identifier=email, defaults=data)
+                GoogleModel.objects.update_or_create(email=email, defaults=data)
                 login(request, user)
             else:
                 data.update({
-                    'identifier': email,
+                    'email': email,
                 })
-                is_another_account = GoogleModel.objects.filter(identifier=email).first()
+                is_another_account = GoogleModel.objects.filter(email=email).first()
                 if is_another_account:
                     messages.error(self.request, _('account_with_this_connection_already_exist'))
                     return False
