@@ -62,9 +62,9 @@ class TwitchAdmin(DefaultPermission):
 
 
 class DiscordAdmin(DefaultPermission):
-    search_fields = ('user__username', 'token_type', 'access_token', 'expires_in', 'date')
+    search_fields = ('user__username', 'identifier', 'expires_in', 'date')
     list_filter = ('token_type',)
-    list_display = ('user', 'token_type', 'access_token', 'expires_in', 'date')
+    list_display = ('user', 'identifier', 'expires_in', 'date')
 
 
 class ProfileAdmin(DefaultPermission):

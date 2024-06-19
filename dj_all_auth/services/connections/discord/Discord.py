@@ -102,6 +102,7 @@ class Discord:
         payload = self.decode_base64(payload)
         payload = json.loads(payload)
         iss_list = ['https://discord.com', 'discord.com']
+        identifier = payload.get('sub')
 
         if payload.get('iss', None) not in iss_list:
             return False
