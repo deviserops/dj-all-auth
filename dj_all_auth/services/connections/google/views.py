@@ -60,8 +60,9 @@ class Authenticated(View):
                     # check if email is required
                     if self.is_field_unique(get_user_model(), 'email'):
                         payload.update({"email": email})
+                        user = get_user_model().objects.filter(email=email).first()
 
-                    user = get_user_model().objects.create_user(**payload)
+                    user = get_user_model().objects.create_user(**payload) if not user else user
                     data.update({'user': user})
                 else:
                     user = is_exist.user

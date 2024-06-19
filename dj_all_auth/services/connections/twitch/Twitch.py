@@ -104,7 +104,7 @@ class Twitch:
             return False
 
         header, payload, signature = id_token.split('.')
-        payload = base64.b64decode(payload)
+        payload = self.decode_base64(payload)
         payload = json.loads(payload)
         iss_list = ['https://id.twitch.tv/oauth2', 'id.twitch.tv/oauth2']
 
@@ -117,6 +117,14 @@ class Twitch:
         # TODO add more validation
 
         return payload.get('email', False)
+
+    def decode_base64(self, payload):
+        """Decodes a base64 encoded string with proper padding handling."""
+        missing_padding = len(payload) % 4
+        if missing_padding != 0:
+            payload += '=' * missing_padding
+
+        return base64.b64decode(payload)
 
     def refresh_token(self, user):
         connection = TwitchModel.objects.filter(user=user).first()

@@ -16,6 +16,7 @@ from .services.security.urls import security_urlpatterns
 
 d_view.LoginView.template_name = template_name + '/auth/login.html'
 d_view.LogoutView.template_name = template_name + '/auth/logout.html'
+# TODO Add password change layout in panel
 # d_view.PasswordChangeView.template_name = template_name + '/auth/login.html'
 # d_view.PasswordChangeDoneView.template_name = template_name + '/auth/login.html'
 d_view.PasswordResetView.template_name = template_name + '/auth/password_reset.html'

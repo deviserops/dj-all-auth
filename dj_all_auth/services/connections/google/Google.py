@@ -97,6 +97,33 @@ class Google:
 
         return response
 
+    def validate_id_token(self, id_token):
+        if not id_token:
+            return False
+
+        header, payload, signature = id_token.split('.')
+        payload = self.decode_base64(payload)
+        payload = json.loads(payload)
+        iss_list = ['https://accounts.google.com', 'accounts.google.com']
+
+        if payload.get('iss', None) not in iss_list:
+            return False
+
+        if payload.get('aud') != self.client_id:
+            return False
+
+        # TODO add more validation
+
+        return payload.get('email', False)
+
+    def decode_base64(self, payload):
+        """Decodes a base64 encoded string with proper padding handling."""
+        missing_padding = len(payload) % 4
+        if missing_padding != 0:
+            payload += '=' * missing_padding
+
+        return base64.b64decode(payload)
+
     def refresh_token(self, user):
         connection = GoogleModel.objects.filter(user=user).first()
         if connection:
@@ -124,25 +151,6 @@ class Google:
             }
             self.call_api(self.oauth2_host, self.oauth2_revoke, 'POST', payload=payload)
             connection.delete()
-
-    def validate_id_token(self, id_token):
-        if not id_token:
-            return False
-
-        header, payload, signature = id_token.split('.')
-        payload = base64.b64decode(payload)
-        payload = json.loads(payload)
-        iss_list = ['https://accounts.google.com', 'accounts.google.com']
-
-        if payload.get('iss', None) not in iss_list:
-            return False
-
-        if payload.get('aud') != self.client_id:
-            return False
-
-        # TODO add more validation
-
-        return payload.get('email', False)
 
     def call_api(self, host, end_point, method='GET', payload=None, headers=None):
         if headers is None:

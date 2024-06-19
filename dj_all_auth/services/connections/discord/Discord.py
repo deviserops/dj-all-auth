@@ -1,5 +1,6 @@
 import os
 import json
+import base64
 import hashlib
 import logging
 import http.client
@@ -22,7 +23,7 @@ class Discord:
         self.client_secret = config.get('CLIENT_SECRET', None) if config else None
 
         # set scopes
-        self.default_scope = ['identify', 'email', 'connections', 'guilds', 'guilds.join']
+        self.default_scope = ['openid', 'identify', 'email', 'connections', 'guilds', 'guilds.join']
         self.scope = config.get('SCOPE', self.default_scope) if config else self.default_scope
         self.update_scope()
 
@@ -31,7 +32,7 @@ class Discord:
         self.oauth2_token = '/api/oauth2/token'
         self.oauth2_revoke = '/oauth2/token/revoke'
         self.api_status = None
-        
+
     def update_scope(self):
         for scope in self.default_scope:
             if scope not in self.scope:
@@ -91,6 +92,44 @@ class Discord:
             logging.error(str(e))
 
         return response
+
+    def validate_id_token(self, connection):
+        id_token = connection.get('id_token', None)
+        if not id_token:
+            return False
+
+        header, payload, signature = id_token.split('.')
+        payload = self.decode_base64(payload)
+        payload = json.loads(payload)
+        iss_list = ['https://discord.com', 'discord.com']
+
+        if payload.get('iss', None) not in iss_list:
+            return False
+
+        if self.client_id not in payload.get('aud'):
+            return False
+
+        # TODO add more validation
+
+        # get and return email
+        discord_me = '/api/users/@me'
+        token_type = connection.get('token_type')
+        access_token = connection.get('access_token')
+        headers = {
+            'Authorization': f'{token_type} {access_token}'
+        }
+
+        response = self.call_api(self.oauth2_host, discord_me, 'GET', None, headers)
+
+        return response.get('email', False)
+
+    def decode_base64(self, payload):
+        """Decodes a base64 encoded string with proper padding handling."""
+        missing_padding = len(payload) % 4
+        if missing_padding != 0:
+            payload += '=' * missing_padding
+
+        return base64.b64decode(payload)
 
     def refresh_token(self, user):
         connection = DiscordModel.objects.filter(user=user).first()
