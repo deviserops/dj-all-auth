@@ -9,7 +9,7 @@ Detailed documentation is in the "docs" directory.
 Quick start
 -----------
 
-1. Add "account" to your INSTALLED_APPS setting like this::
+1. Add "dj_all_auth" to your INSTALLED_APPS setting like this::
 
     INSTALLED_APPS = [
         ...,
@@ -18,7 +18,7 @@ Quick start
 
 2. Include the polls URLconf in your project urls.py like this::
 
-    # if you are not using /accounts url then you need to add `LOGIN_URL = '<your-url>'` in your settings.py
+    # if you are not using /accounts url then you need to add `LOGIN_URL = '<your-url>'` in your settings.py, and use that url to url path.
 
     path('accounts/', include('dj_all_auth.urls')),
 
@@ -37,19 +37,19 @@ Quick start
             # name of the url that will be used once OAuth is completed
             'REDIRECT_URI_NAME': None,
             'GOOGLE': {
-                # Set {domain-with-above-url-without-locale (en/gb)}/accounts/google/authenticated to twitch redirect url
+                # Set {domain-with-above-url-without-locale (en/gb)}/accounts/google/authenticated to google redirect url in google developer console
                 'CLIENT_ID': os.getenv('GOOGLE_CLIENT_ID') if os.getenv('GOOGLE_CLIENT_ID') else None,
                 'CLIENT_SECRET': os.getenv('GOOGLE_CLIENT_SECRET') if os.getenv('GOOGLE_CLIENT_SECRET') else None,
                 'SCOPE': ['openid', 'email', 'https://www.googleapis.com/auth/drive.file']
             },
             'TWITCH': {
-                # Set {domain-with-above-url-without-locale (en/gb)}/account/twitch/authenticated to twitch redirect url
+                # Set {domain-with-above-url-without-locale (en/gb)}/account/twitch/authenticated to twitch redirect url in twitch developer console
                 'CLIENT_ID': os.getenv('TWITCH_CLIENT_ID') if os.getenv('TWITCH_CLIENT_ID') else None,
                 'CLIENT_SECRET': os.getenv('TWITCH_CLIENT_SECRET') if os.getenv('TWITCH_CLIENT_SECRET') else None,
                 'SCOPE': ['openid', 'user:read:email', 'user:read:broadcast']
             },
             'DISCORD': {
-                # Set {domain-with-above-url-without-locale (en/gb)}/account/discord/authenticated to discord redirect url
+                # Set {domain-with-above-url-without-locale (en/gb)}/account/discord/authenticated to discord redirect url in discord developer console
                 'CLIENT_ID': os.getenv('DISCORD_CLIENT_ID') if os.getenv('DISCORD_CLIENT_ID') else None,
                 'CLIENT_SECRET': os.getenv('DISCORD_CLIENT_SECRET') if os.getenv('DISCORD_CLIENT_SECRET') else None,
                 'SCOPE': ['identify', 'email', 'connections', 'guilds', 'guilds.join']
@@ -57,26 +57,28 @@ Quick start
         }
     }
 
-4. To create models run::
+4. To create migrations run::
 
     python manage.py migrate
 
 5. If you are using multilanguage then to create language file run::
 
-    python manage.py makemessages -i venv --all
+    python manage.py makemessages --all -i venv
 
 6. Visit the ``/accounts/`` URL to access user account.
 
 7. To create multilanguage url you need to have ``locale/<language-code>`` directory, then run::
 
     python manage.py makemessages --all -i venv
-    # then make your changes in your local file after run
+    # then make your changes in your local file then run
     python manage.py compilemessages
 
 
 Notes:
 --------
 
+ These are additional packages used for UI stability - You can find them on my profile.
+
 - static/notify :: Ref: https://github.com/deviserops/notify
 - static/justify :: Ref: https://github.com/deviserops/justify
-- static/images
+- static/images :: All static images are present in this dir, replace them as required (Must be same name and type.)
