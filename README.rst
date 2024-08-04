@@ -82,3 +82,10 @@ Notes:
 - static/notify :: Ref: https://github.com/deviserops/notify
 - static/justify :: Ref: https://github.com/deviserops/justify
 - static/images :: All static images are present in this dir, replace them as required (Must be same name and type.)
+
+--------
+
+ Build and upload.
+
+- `python -m build`
+- `twine upload dist/* --verbose`
