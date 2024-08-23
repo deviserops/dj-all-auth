@@ -1,0 +1,36 @@
+{% extends ac_layout %}
+{% block content %}
+{% load static %}
+<div class="container mt-5 px-lg-5">
+    <div class="d-flex align-items-center justify-content-sm-start justify-content-center flex-wrap">
+        <img class="img-thumbnail" src="{% static ac_app_name|add:'/images/default.webp' %}"
+             loading="lazy" decoding="async" width="80"/>
+        <span class="fs-1 ms-3 fw-light">{{ _('welcome')|title }}&nbsp;{{ user.username }}!</span>
+    </div>
+    <hr class="hr">
+    <div class="row">
+        <div class="col-lg-4 col-md-6 my-2">
+            <div class="card h-100">
+                <div class="card-body text-center py-5">
+                    <img class="img-thumbnail" src="{% static ac_app_name|add:'/images/default.webp' %}"
+                         loading="lazy" decoding="async" width="80"/>
+                    <h5 class="card-title fw-normal mt-2">{{ _('account_information') }}</h5>
+                    <p class="card-text">{{ _('edit_information') }}</p>
+                    <a href="{% url '__account_profile_index' %}" class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 my-2">
+            <div class="card h-100">
+                <div class="card-body text-center py-5">
+                    <img class="img-thumbnail" src="{% static ac_app_name|add:'/images/default.webp' %}"
+                         loading="lazy" decoding="async" width="80"/>
+                    <h5 class="card-title fw-normal mt-2">{{ _('security') }}</h5>
+                    <p class="card-text">{{ _('edit_your_password_and_manage_security') }}</p>
+                    <a href="{% url '__account_security_index' %}" class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

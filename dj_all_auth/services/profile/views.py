@@ -1,4 +1,5 @@
-from . import service_template
+from ...models import Profile
+from . import profile_template
 from django.urls import reverse_lazy
 from django.http import JsonResponse
 from django.shortcuts import redirect
@@ -7,26 +8,16 @@ from django.contrib.auth import get_user_model
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, FormView
 from django.contrib.auth.decorators import login_required
-from ...models import Profile, Google, Steam, Twitch, Discord
 
 
 @method_decorator(decorator=login_required, name='dispatch')
 class Index(TemplateView):
-    template_name = f'{service_template}/index.html'
+    template_name = f'{profile_template}/index.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-
-        google = Google.objects.filter(user=self.request.user)
-        steam = Steam.objects.filter(user=self.request.user)
-        twitch = Twitch.objects.filter(user=self.request.user)
-        discord = Discord.objects.filter(user=self.request.user)
         context.update({
-            'edit_form': EditProfileForm,
-            'google': google,
-            'steam': steam,
-            'twitch': twitch,
-            'discord': discord,
+            'edit_form': EditProfileForm
         })
 
         return context

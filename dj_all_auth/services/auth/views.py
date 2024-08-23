@@ -1,5 +1,6 @@
 import logging
 
+from . import auth_template
 from ...lib.Mail import Mail
 from ... import base_template
 from ...models import Profile
@@ -19,7 +20,7 @@ from ...context_processors import __default_context as default_context
 
 class Register(CreateView):
     model = get_user_model()
-    template_name = base_template + '/auth/register.html'
+    template_name = auth_template + '/register.html'
     form_class = RegisterForm
     success_url = '/'
 
@@ -90,7 +91,7 @@ class ActivateAccount(View):
 
 class ActivateRequest(FormView):
     form_class = AccountActivateForm
-    template_name = base_template + '/auth/request_account_activation.html'
+    template_name = auth_template + '/request_account_activation.html'
 
     def form_invalid(self, form):
         return JsonResponse({'status': False, 'errors': form.errors}, status=422)

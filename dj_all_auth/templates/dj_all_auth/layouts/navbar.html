@@ -1,18 +1,46 @@
 {% load static %}
-<nav class="navbar navbar-light bg-body-tertiary">
-    <div class="container-fluid">
-        <a class="navbar-brand ms-5" href="/">
-            <img src="{% static ac_logo %}"
-                 class="me-2" height="20" alt="Logo" loading="lazy" decoding="async"/>
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary my-0 border-bottom  shadow-0">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <img src="{% static ac_logo %}" class="me-2 my-2" height="20" alt="Logo" loading="lazy" decoding="async"/>
         </a>
-        <!-- Right elements -->
-        <div class="d-flex align-items-center me-5">
-            <!-- Icon -->
-            <a class="me-3" href=""><span class="navbar-text">{{ user.username }}</span></a>
-            <a class="me-3" href="{% url 'logout' %}" data-method="post">
-                <i class="fas fa-sign-out-alt navbar-text"></i>
-            </a>
+        <button data-mdb-collapse-init class="navbar-toggler" type="button" data-mdb-target=".navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <!-- active border-bottom border-info-->
+                {% url '__account' as ac__account %}
+                {% url '__account_connections' as ac__account_connections %}
+                {% url '__account_profile_index' as ac__account_profile_index %}
+                <a class="nav-link {% if request.path == ac__account %} active {% endif %}"
+                   href="{% url '__account' %}">{{ _('dashboard') }}</a>
+                <a class="nav-link {% if request.path == ac__account_connections %} active {% endif %}"
+                   href="{% url '__account_connections' %}">{{ _('connections') }}</a>
+                <div class="d-block d-lg-none border-top">
+                    <a class="nav-link active" aria-current="page" href="#">
+                        {{ user.username }}<br/>
+                        <span class="text-muted">{{ user.email }}</span>
+                    </a>
+                    <a class="nav-link {% if request.path == ac__account_profile_index %} active {% endif %}"
+                       aria-current="page" href="{% url '__account_profile_index' %}">
+                        {{ _('profile') }}</a>
+                    <a class="nav-link" href="{% url 'logout' %}" data-method="post">{{ _('logout') }}</a>
+                </div>
+            </div>
+            <div class="btn-group shadow-0 d-none d-lg-block">
+                <button type="button" class="btn dropdown-toggle" data-mdb-dropdown-init data-mdb-ripple-init
+                        data-mdb-display="static" aria-expanded="false">
+                    {{ user.username }}
+                </button>
+                <ul class="dropdown-menu dropdown-menu-lg-end">
+                    <li><a class="dropdown-item" href="{% url '__account_profile_index' %}">{{ _('profile') }}</a></li>
+                    <li class="border-top">
+                        <a class="dropdown-item" href="{% url 'logout' %}" data-method="post"> {{ _('logout') }}</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <!-- Right elements -->
     </div>
 </nav>

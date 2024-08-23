@@ -1,0 +1,5 @@
+Hello {{ user.username }},
+
+To activate your account, open below link in your browser.
+
+{{ domain }}{{ link }}

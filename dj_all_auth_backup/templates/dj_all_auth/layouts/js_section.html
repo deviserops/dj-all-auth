@@ -1,0 +1,44 @@
+{% load static %}
+<!--Jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js" defer
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" onload="js_ready()"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.umd.min.js"
+        async></script>
+
+<!--Justify Js-->
+<script type="text/javascript" src="{% static ac_app_name|add:'/justify/justify.js' %}" defer></script>
+
+<!--notify-->
+<script type="text/javascript" src="{% static ac_app_name|add:'/notify/js/notify.js' %}" onload="show_noty()"
+        defer></script>
+
+
+<script>
+    function show_noty(){
+        {% if messages %}
+        let noty = new Notify()
+        {% for message in messages %}
+        noty.show('{{ message.tags }}', '{{ message }}')
+        {% endfor %}
+        {% endif %}
+    }
+</script>
+<script type="text/javascript">
+    function js_ready() {
+        $(document).ready(function () {
+            let noty = new Notify()
+            var csrf_token = $(document).find('meta[name="csrf-token"]').attr('content')
+            new Justify({
+                justifyError: true,
+                showBorderError: true,
+                underfieldError: true,
+                csrfTokenName: 'csrfmiddlewaretoken',
+                csrfToken: csrf_token,
+                customJustify: function (type, message) {
+                    noty.show(type, message)
+                }
+            })
+        })
+    }
+</script>

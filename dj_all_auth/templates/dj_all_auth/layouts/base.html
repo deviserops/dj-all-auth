@@ -9,15 +9,7 @@
 {% include ac_app_name|add:'/layouts/navbar.html' %}
 {% block css_block %} {% endblock %}
 <div class="container-fluid">
-    <div class="row">
-        {% url '__account' as ac_home %}
-        <div class="col-xl-3 col-md-4 col-sm-12 bg-dark bg-gradient px-0 {% if request.path != ac_home %} d-none d-md-block {% endif %}">
-            {% include ac_app_name|add:'/layouts/sidebar.html' %}
-        </div>
-        <div class="col-xl-9 col-md-8 d-md-block {% if request.path == ac_home %} d-none {% endif %}">
-            {% block content %} {% endblock %}
-        </div>
-    </div>
+    {% block content %} {% endblock %}
 </div>
 {% include ac_app_name|add:'/layouts/js_section.html' %}
 </body>

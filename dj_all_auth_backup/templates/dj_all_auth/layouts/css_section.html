@@ -1,0 +1,49 @@
+{% load static %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.min.css" rel="stylesheet" media="all"/>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Averia+Sans+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+      rel="stylesheet" async>
+
+<!--notify-->
+<link href="{% static ac_app_name|add:'/notify/css/notify.css' %}" rel="stylesheet"></link>
+
+<style>
+    /** custom scrollbar **/
+    html::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    html::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.1);
+    }
+
+    html::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    html::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 0, 0, 0.4);
+    }
+
+    html::-webkit-scrollbar-thumb:active {
+        background: rgba(0, 0, 0, .9);
+    }
+
+    /*Full Site*/
+    body {
+        font-family: 'Averia Sans Libre', cursive;
+    }
+
+    /*Sidebar*/
+    .sidebar ul li:hover, .sidebar .active {
+      background-color: #5a5a5a;
+    }
+</style>

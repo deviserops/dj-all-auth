@@ -1,0 +1,212 @@
+{% extends ac_layout %}
+{% block content %}
+{% load static %}
+<div class="container mt-5 px-lg-5">
+    <span class="fs-1 fw-light">{{ _('account_information')|title }}</span>
+    <div class="card h-100 mb-3">
+        <div class="card-body text-start">
+            <div class="d-flex justify-content-start align-items-center">
+                <img class="img-thumbnail" src="{% static ac_app_name|add:'/images/default.webp' %}"
+                     loading="lazy" decoding="async" width="80"/>
+                <div class="ms-3">
+                    <span class="text-muted">{{ _('username')|title }}</span>
+                    <p class="text-body fs-5 fw-normal mb-0">{{ user.username }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card h-100 mb-3">
+        <div class="card-body text-start">
+            <div class="mb-3 d-flex justify-content-between align-items-center">
+                <h5 class="fs-4 fw-normal">{{ _('private_information') }}</h5>
+                <button type="button" class="btn btn-sm btn-info multi-collapse collapse show" id="edit_button"
+                        data-mdb-ripple-init data-mdb-collapse-init
+                        data-mdb-target=".multi-collapse" aria-expanded="false"
+                        aria-controls="profile_table edit_form edit_button">{{ _('update') }}
+                </button>
+            </div>
+            <form class="multi-collapse collapse ajaxForm" id="edit_form" method="post"
+                  action="{% url '__account_profile_edit' %}">
+                {% csrf_token %}
+                <div class="row mb-4">
+                    <div class="col">
+                        <div data-mdb-input-init class="form-outline">
+                            <input type="text" id="{{ edit_form.first_name.name }}" class="form-control form-control-sm"
+                                   name="{{ edit_form.first_name.name }}"
+                                   value="{{ user.first_name }}"/>
+                            <label class="form-label" for="{{ edit_form.first_name.name }}">
+                                {{ edit_form.first_name.name|title }}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div data-mdb-input-init class="form-outline">
+                            <input type="text" id="{{ edit_form.last_name.name }}" class="form-control form-control-sm"
+                                   name="{{ edit_form.last_name.name }}"
+                                   value="{{ user.last_name }}"/>
+                            <label class="form-label" for="{{ edit_form.last_name.name }}">
+                                {{ edit_form.last_name.name|title }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <select class="form-control form-control-sm" name="{{ edit_form.gender.name }}">
+                            {% for g in edit_form.fields.gender.choices %}
+                            {% if user.profile.gender == g.0 %}
+                            <option value="{{ g.0 }}" selected>
+                                {{ g.1 }}
+                            </option>
+                            {% else %}
+                            <option value="{{ g.0 }}">
+                                {{ g.1 }}
+                            </option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <input class="form-control form-control-sm" type="date"
+
+                               name="{{ edit_form.date_of_birth.name }}"
+                               value="{{ user.profile.date_of_birth|date:'Y-m-d' }}">
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div data-mdb-input-init class="form-outline">
+                            <input class="form-control form-control-sm" type="text"
+                                   name="{{ edit_form.phone_number.name }}" id="{{ edit_form.phone_number.name }}"
+                                   value="{{ user.profile.phone_number }}">
+                            <label class="form-label" for="{{ edit_form.phone_number.name }}">
+                                {{ edit_form.phone_number.name|title }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-end align-items-end">
+                    <div class="col-3 d-flex justify-content-end">
+                        <div class="btn-group align-items-end" role="group" aria-label="Basic example">
+                            <button type="submit" class="btn btn-sm btn-info" data-mdb-ripple-init>{{ _('update') }}
+                            </button>
+                            <button type="button" class="btn btn-sm btn-danger"
+                                    data-mdb-ripple-init data-mdb-collapse-init
+                                    data-mdb-target=".multi-collapse" aria-expanded="false"
+                                    aria-controls="profile_table edit_form edit_button">{{ _('close') }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="collapse multi-collapse show" id="profile_table">
+                <table class="table table-sm">
+                    <tbody>
+                    <tr>
+                        <td>{{ _('email') }}</td>
+                        <td>{{ user.email }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ _('name') }}</td>
+                        <td>{{ user.first_name }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ _('gender') }}</td>
+                        <td>{{ user.profile.get_gender_display }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ _('date_of_birth') }}</td>
+                        <td>{{ user.profile.date_of_birth }}</td>
+                    </tr>
+                    <tr class="border-bottom-0 border-white">
+                        <td>{{ _('phone_number') }}</td>
+                        <td>{{ user.profile.phone_number }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card h-100 mb-3">
+        <div class="card-body text-start">
+            <h5 class="fs-4 fw-normal mb-3">{{ _('linked_accounts') }}</h5>
+            <div class="row">
+                <div class="col-xl-3 col-md-6 mb-4 mb-lg-0">
+                    <div class="bg-image hover-overlay ripple rounded-6 p-4" data-mdb-ripple-init
+                         data-mdb-ripple-color="primary">
+                        <div class="d-flex align-items-center justify-content-center justify-content-between">
+                            <i class="fab fa-google fa-5x"></i>
+                            <div>
+                                <p class="mb-1 h2 fw-bold"> Google </p>
+                                {% if google %}
+                                <p class="mb-0"><small class="text-success"> Connected </small></p>
+                                {% else %}
+                                <p class="mb-0"><small class="text-danger"> Not Connected </small></p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <a href="{% if google %}{% url '__account_google_unauthenticate' %}  {% else %} {% url '__account_google_authenticate' %} {% endif %}">
+                            <div class="mask" style="background-color: hsla(209, 62.2%, 45%, 0.08)"></div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4 mb-lg-0">
+                    <div class="bg-image hover-overlay ripple rounded-6 p-4" data-mdb-ripple-init
+                         data-mdb-ripple-color="primary">
+                        <div class="d-flex align-items-center justify-content-center justify-content-between">
+                            <i class="fab fa-steam fa-5x" style="color: #072257"></i>
+                            <div>
+                                <p class="mb-1 h2 fw-bold"> Steam </p>
+                                {% if steam %}
+                                <p class="mb-0"><small class="text-success"> Connected </small></p>
+                                {% else %}
+                                <p class="mb-0"><small class="text-danger"> Not Connected </small></p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <a href="{% if steam %}{% url '__account_steam_unauthenticate' %}  {% else %} {% url '__account_steam_authenticate' %} {% endif %}">
+                            <div class="mask" style="background-color: hsla(209, 62.2%, 45%, 0.08)"></div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4 mb-lg-0">
+                    <div class="bg-image hover-overlay ripple rounded-6 p-4" data-mdb-ripple-init
+                         data-mdb-ripple-color="primary">
+                        <div class="d-flex align-items-center justify-content-center justify-content-between">
+                            <i class="fab fa-twitch fa-5x" style="color: #944cff"></i>
+                            <div>
+                                <p class="mb-1 h2 fw-bold"> Twitch </p>
+                                {% if twitch %}
+                                <p class="mb-0"><small class="text-success"> Connected </small></p>
+                                {% else %}
+                                <p class="mb-0"><small class="text-danger"> Not Connected </small></p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <a href="{% if twitch %}{% url '__account_twitch_unauthenticate' %}  {% else %} {% url '__account_twitch_authenticate' %} {% endif %}">
+                            <div class="mask" style="background-color: hsla(209, 62.2%, 45%, 0.08)"></div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4 mb-lg-0">
+                    <div class="bg-image hover-overlay ripple rounded-6 p-4" data-mdb-ripple-init
+                         data-mdb-ripple-color="primary">
+                        <div class="d-flex align-items-center justify-content-center justify-content-between">
+                            <i class="fab fa-discord fa-5x" style="color: #5865f2"></i>
+                            <div>
+                                <p class="mb-1 h2 fw-bold"> Discord </p>
+                                {% if discord %}
+                                <p class="mb-0"><small class="text-success"> Connected </small></p>
+                                {% else %}
+                                <p class="mb-0"><small class="text-danger"> Not Connected </small></p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <a href="{% if discord %}{% url '__account_discord_unauthenticate' %}  {% else %} {% url '__account_discord_authenticate' %} {% endif %}">
+                            <div class="mask" style="background-color: hsla(209, 62.2%, 45%, 0.08)"></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

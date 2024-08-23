@@ -1,0 +1,8 @@
+{% extends ac_app_name|add:'/auth/base.html' %}
+{% block content %}
+<h3>{{ _('thank_you_for_using_our_services') }}
+    <a class="link-primary" href="{% url 'login' %}">{{_('login')}}.</a>
+    <br>
+    {{ _('send_me_to_website') }}&nbsp;<a class="link-primary" href="/">{{ _('home') }}.</a>
+</h3>
+{% endblock %}

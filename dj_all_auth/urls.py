@@ -2,6 +2,7 @@ from . import views
 from django.urls import path, include
 from . import base_template as template_name
 from .services.auth import views as auth_view
+from .services.connections import views as connection_view
 from django.contrib.auth import views as d_view
 
 # connection service urls
@@ -12,7 +13,6 @@ from .services.connections.discord.urls import discord_urlpatterns
 
 # account service urls
 from .services.profile.urls import profile_urlpatterns
-from .services.security.urls import security_urlpatterns
 
 d_view.LoginView.template_name = template_name + '/auth/login.html'
 d_view.LogoutView.template_name = template_name + '/auth/logout.html'
@@ -34,6 +34,7 @@ urlpatterns = [
     path('account-activate/<uidb64>/<token>', auth_view.ActivateAccount.as_view(), name='__activate_account'),
 
     # connection services
+    path('connections/', connection_view.Index.as_view(), name='__account_connections'),
     path('steam/', include(steam_urlpatterns)),
     path('twitch/', include(twitch_urlpatterns)),
     path('google/', include(google_urlpatterns)),
@@ -41,5 +42,4 @@ urlpatterns = [
 
     # account service
     path('profile/', include(profile_urlpatterns)),
-    path('security/', include(security_urlpatterns))
 ]
