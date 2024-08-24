@@ -28,8 +28,9 @@
                 </div>
             </div>
             <div class="btn-group shadow-0 d-none d-lg-block">
-                <button type="button" class="btn dropdown-toggle" data-mdb-dropdown-init data-mdb-ripple-init
-                        data-mdb-display="static" aria-expanded="false">{{ user.username }}
+                <button type="button" class="btn dropdown-toggle"
+                        style="text-transform: none; font-size: var(--mdb-nav-link-font-size)" data-mdb-dropdown-init
+                        data-mdb-ripple-init data-mdb-display="static" aria-expanded="false">{{ user.username }}
                 </button>
                 <ul class="dropdown-menu dropdown-menu-lg-end">
                     <li><a class="dropdown-item" href="{% url '__account_profile_index' %}">{{ _('profile') }}</a></li>
