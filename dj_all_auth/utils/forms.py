@@ -1,5 +1,4 @@
 from django import forms
-from ..models import Profile
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 
@@ -19,10 +18,7 @@ class AccountActivateForm(forms.Form):
     email = forms.EmailField()
 
 
-class EditProfileForm(forms.ModelForm):
+class EditProfileForm(forms.Form):
     first_name = forms.CharField(required=True, max_length=50)
     last_name = forms.CharField(required=True, max_length=50)
-
-    class Meta:
-        model = Profile
-        fields = ('gender', 'date_of_birth', 'phone_number')
+    email = forms.CharField(required=False, max_length=150)

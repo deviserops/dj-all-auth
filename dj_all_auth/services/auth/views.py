@@ -3,7 +3,6 @@ import logging
 from . import auth_template
 from ...lib.Mail import Mail
 from ... import base_template
-from ...models import Profile
 from django.urls import reverse
 from django.contrib import messages
 from django.http import JsonResponse
@@ -31,11 +30,6 @@ class Register(CreateView):
         user = form.save(False)
         user.is_active = False
         user.save()
-
-        # create profile for user
-        profile = Profile()
-        profile.user = user
-        profile.save()
 
         # send verification mail
         self.send_email(user)

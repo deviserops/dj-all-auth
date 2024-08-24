@@ -1,9 +1,11 @@
+import django.contrib.auth.urls
+
 from . import views
 from django.urls import path, include
 from . import base_template as template_name
 from .services.auth import views as auth_view
-from .services.connections import views as connection_view
 from django.contrib.auth import views as d_view
+from .services.connections import views as connection_view
 
 # connection service urls
 from .services.connections.steam.urls import steam_urlpatterns
@@ -14,11 +16,17 @@ from .services.connections.discord.urls import discord_urlpatterns
 # account service urls
 from .services.profile.urls import profile_urlpatterns
 
+# remove unwanted urls
+remove_urls = ['password_change_done', 'password_change']
+for name in remove_urls:
+    for d in django.contrib.auth.urls.urlpatterns:
+        if d.name == name:
+            django.contrib.auth.urls.urlpatterns.remove(d)
+
+# After login page
+d_view.LoginView.next_page = '__account'
 d_view.LoginView.template_name = template_name + '/auth/login.html'
 d_view.LogoutView.template_name = template_name + '/auth/logout.html'
-# TODO Add password change layout in panel
-# d_view.PasswordChangeView.template_name = template_name + '/auth/login.html'
-# d_view.PasswordChangeDoneView.template_name = template_name + '/auth/login.html'
 d_view.PasswordResetView.template_name = template_name + '/auth/password_reset.html'
 d_view.PasswordResetDoneView.template_name = template_name + '/auth/password_reset_done.html'
 d_view.PasswordResetConfirmView.template_name = template_name + '/auth/password_reset_confirm.html'

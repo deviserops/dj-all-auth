@@ -87,6 +87,6 @@ Notes:
 
  Test, Build and upload.
 
-- `pip install --user django-all-auth/dist/path_to.tar.gz` To run on local
 - `python -m build`
+- `pip install --user django-all-auth/dist/path_to.tar.gz` To run on local
 - `twine upload dist/* --verbose`

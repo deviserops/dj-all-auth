@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext as _
-from .models import Google, Steam, Twitch, Discord, EmailTemplate, Profile
+from .models import Google, Steam, Twitch, Discord, EmailTemplate
 
 
 class CustomUserModel(UserAdmin):
@@ -67,12 +67,6 @@ class DiscordAdmin(DefaultPermission):
     list_display = ('user', 'identifier', 'expires_in', 'date')
 
 
-class ProfileAdmin(DefaultPermission):
-    search_fields = ('user__username', 'date_of_birth', 'phone_number')
-    list_filter = ('gender',)
-    list_display = ('user', 'date_of_birth', 'phone_number')
-
-
 admin.site.unregister(get_user_model())
 admin.site.register(get_user_model(), CustomUserModel)
 admin.site.register(EmailTemplate, EmailTemplateAdmin)
@@ -80,4 +74,3 @@ admin.site.register(Google, GoogleAdmin)
 admin.site.register(Steam, SteamAdmin)
 admin.site.register(Twitch, TwitchAdmin)
 admin.site.register(Discord, DiscordAdmin)
-admin.site.register(Profile, ProfileAdmin)

@@ -14,25 +14,22 @@
                 {% url '__account' as ac__account %}
                 {% url '__account_connections' as ac__account_connections %}
                 {% url '__account_profile_index' as ac__account_profile_index %}
+                {% url 'password_change' as ac_password_change %}
                 <a class="nav-link {% if request.path == ac__account %} active {% endif %}"
                    href="{% url '__account' %}">{{ _('dashboard') }}</a>
                 <a class="nav-link {% if request.path == ac__account_connections %} active {% endif %}"
                    href="{% url '__account_connections' %}">{{ _('connections') }}</a>
                 <div class="d-block d-lg-none border-top">
                     <a class="nav-link active" aria-current="page" href="#">
-                        {{ user.username }}<br/>
-                        <span class="text-muted">{{ user.email }}</span>
-                    </a>
+                        {{ user.username }}<br/><span class="text-muted">{{ user.email }}</span></a>
                     <a class="nav-link {% if request.path == ac__account_profile_index %} active {% endif %}"
-                       aria-current="page" href="{% url '__account_profile_index' %}">
-                        {{ _('profile') }}</a>
+                       aria-current="page" href="{% url '__account_profile_index' %}">{{ _('profile') }}</a>
                     <a class="nav-link" href="{% url 'logout' %}" data-method="post">{{ _('logout') }}</a>
                 </div>
             </div>
             <div class="btn-group shadow-0 d-none d-lg-block">
                 <button type="button" class="btn dropdown-toggle" data-mdb-dropdown-init data-mdb-ripple-init
-                        data-mdb-display="static" aria-expanded="false">
-                    {{ user.username }}
+                        data-mdb-display="static" aria-expanded="false">{{ user.username }}
                 </button>
                 <ul class="dropdown-menu dropdown-menu-lg-end">
                     <li><a class="dropdown-item" href="{% url '__account_profile_index' %}">{{ _('profile') }}</a></li>
