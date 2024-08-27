@@ -6,6 +6,36 @@ DJ All Auth
 
 Detailed documentation is in the "docs" directory.
 
+Demo Images:
+------------
+
+    - Login Page
+
+    .. image:: ./docs/images/login.png
+        :align: center
+
+----
+
+    - Dashboard
+
+    .. image:: ./docs/images/dashboard.png
+        :align: center
+
+----
+
+    - Connections
+
+    .. image:: ./docs/images/connections.png
+        :align: center
+
+----
+
+    - Profile
+
+    .. image:: ./docs/images/profile.png
+        :align: center
+
+
 Quick start
 -----------
 
@@ -75,7 +105,7 @@ Quick start
 
 
 Notes:
---------
+------
 
  These are additional packages used for UI stability - You can find them on my profile.
 
