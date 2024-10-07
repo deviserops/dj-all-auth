@@ -38,27 +38,32 @@ Demo Images:
 
 Quick start
 -----------
+1. Install it by::
 
-1. Add "dj_all_auth" to your INSTALLED_APPS setting like this::
+    https://pypi.org/project/dj-all-auth/
+
+    pip install dj-all-auth
+
+2. Add "dj_all_auth" to your INSTALLED_APPS setting like this::
 
     INSTALLED_APPS = [
         ...,
         'dj_all_auth',
     ]
 
-2. Include the polls URLconf in your project urls.py like this::
+3. Include the polls URLconf in your project urls.py like this::
 
     # if you are not using /accounts url then you need to add `LOGIN_URL = '<your-url>'` in your settings.py, and use that url to url path.
 
     path('accounts/', include('dj_all_auth.urls')),
 
 
-3. Add context processor to settings.py::
+4. Add context processor to settings.py::
 
     'dj_all_auth.context_processors.__config'
 
 
-4. Add dj_all_auth settings to settings.py::
+5. Add dj_all_auth settings to settings.py::
 
     DJ_ALL_AUTH = {
         # static path of logo image
@@ -87,17 +92,17 @@ Quick start
         }
     }
 
-4. To create migrations run::
+6. To create migrations run::
 
     python manage.py migrate
 
-5. If you are using multilanguage then to create language file run::
+7. If you are using multilanguage then to create language file run::
 
     python manage.py makemessages --all -i venv
 
-6. Visit the ``/accounts/`` URL to access user account.
+8. Visit the ``/accounts/`` URL to access user account.
 
-7. To create multilanguage url you need to have ``locale/<language-code>`` directory, then run::
+9. To create multilanguage url you need to have ``locale/<language-code>`` directory, then run::
 
     python manage.py makemessages --all -i venv
     # then make your changes in your local file then run
