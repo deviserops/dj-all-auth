@@ -9,32 +9,10 @@ Detailed documentation is in the "docs" directory.
 Demo Images:
 ------------
 
-    - Login Page
+    Login/Signup Page
 
     .. image:: ./docs/images/login.png
         :align: center
-
-----
-
-    - Dashboard
-
-    .. image:: ./docs/images/dashboard.png
-        :align: center
-
-----
-
-    - Connections
-
-    .. image:: ./docs/images/connections.png
-        :align: center
-
-----
-
-    - Profile
-
-    .. image:: ./docs/images/profile.png
-        :align: center
-
 
 Quick start
 -----------

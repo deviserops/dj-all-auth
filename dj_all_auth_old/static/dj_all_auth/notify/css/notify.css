@@ -1,0 +1,127 @@
+.notify__container {
+    position: fixed;
+    min-width: 10%;
+    max-width: 50%;
+    width: auto;
+}
+
+.notify__container.top-right {
+    top: 10px;
+    right: 10px;
+}
+
+.notify__container.top-left {
+    top: 10px;
+    left: 10px;
+}
+
+.notify__container.top-center {
+    top: 10px;
+    left: 50%;
+    transform: translate(-50%);
+    align-items: center;
+}
+
+.notify__container.bottom-left {
+    bottom: 10px;
+    left: 10px;
+}
+
+.notify__container.bottom-right {
+    bottom: 10px;
+    right: 10px;
+}
+
+.notify__container.bottom-center {
+    bottom: 10px;
+    left: 50%;
+    transform: translate(-50%);
+    align-items: center;
+}
+
+.notify__container.left-middle {
+    left: 10px;
+    top: 45%;
+}
+
+.notify__container.right-middle {
+    right: 10px;
+    top: 45%;
+}
+
+.notify__container.center-middle {
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%);
+    align-items: center;
+}
+
+.notify__container .notify__title:first-letter, .notify__container .notify__message:first-letter {
+    text-transform: uppercase;
+}
+
+.notify__container .notify__danger,
+.notify__container .notify__info,
+.notify__container .notify__success,
+.notify__container .notify__warning,
+.notify__container .notify__notice {
+    position: relative;
+    margin: 0px 0px 5px 0px;
+    box-shadow: rgb(0 0 0 / 10%) 0px 2px 4px;
+    cursor: pointer;
+    border-radius: 2px;
+    max-width: 310px;
+
+    /* Animation effect slide from top */
+    overflow: hidden;
+    height: var(--notifyAreaHeight, auto); /* Convert to 100% */
+    transition: .5s ease;
+    padding: var(--notifyAreaPadding, 0 10px); /* Convert to (10px 10px) */
+}
+
+.notify__container .notify__danger::after,
+.notify__container .notify__info::after,
+.notify__container .notify__success::after,
+.notify__container .notify__warning::after,
+.notify__container .notify__notice::after {
+    content: "";
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    background-color: rgb(73 73 73);
+    width: var(--jsProgressBarWidth, 100%); /* these are js variables and default value */
+    height: 3px;
+    opacity: 0.2;
+    transition: var(--jsProgressBarTimeout, 'all 4000ms linear 0s'); /* these are js variables and default value */
+}
+
+
+.notify__container .notify__danger {
+    border: 1px solid rgb(241, 183, 193);
+    background-color: rgb(250, 228, 232);
+    color: rgb(176, 61, 80);
+}
+
+.notify__container .notify__info {
+    border: 1px solid rgb(187, 225, 237);
+    background-color: rgb(229, 244, 248);
+    color: rgb(59, 126, 148);
+}
+
+.notify__container .notify__success {
+    border: 1px solid rgb(161, 219, 184);
+    background-color: rgb(220, 241, 228);
+    color: rgb(12, 98, 46);
+}
+
+.notify__container .notify__warning {
+    border: 1px solid rgb(241, 183, 193);
+    background-color: rgb(251, 241, 221);
+    color: rgb(137, 97, 16);
+}
+
+.notify__container .notify__notice {
+    border: 1px solid rgb(217, 219, 224);
+    background-color: rgb(241, 242, 243);
+    color: rgb(64, 66, 71);
+}

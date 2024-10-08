@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--Include Header-->
+    {% include ac_app_name|add:'/layouts/head_section.html' %}
+    {% include ac_app_name|add:'/layouts/css_section.html' %}
+</head>
+<body>
+{% include ac_app_name|add:'/layouts/page-loader.html' %}
+<section class="vh-100">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <!--Content-->
+            <div class="col-sm-6 text-black d-flex flex-column align-items-center justify-content-center"
+                 style="min-height: 100vh;">
+                <a href="/" class="mb-3 pb-3">
+                    <img src="{% static ac_logo %}" loading="lazy" decoding="async" width="80"/>
+                </a>
+                {% block content %} {% endblock %}
+                {% url 'logout' as ac__account_logout %}
+                {% if request.path != ac__account_logout %}
+                <hr class="hr hr-blurry w-100"/>
+                <ul class="list-group list-group-light">
+                    <!-- Login and Register Button -->
+                    {% url '__account_register' as ac__account_register %}
+                    <li class="list-group-item border-0 rounded-3 p-0 mb-2">
+                        <a href="{% if request.path == ac__account_register %}
+                                {% url 'login' %}
+                                {% else %}
+                                {% url '__account_register' %}
+                                {% endif %}"
+                           class="btn btn-info w-100 d-flex align-items-center justify-content-between">
+                            <i class="fa-regular fa-envelope">&nbsp;</i>
+                            <span>{{ _('continue_with_email') }}</span>
+                        </a>
+                    </li>
+                    <!-- Login with Google -->
+                    <li class="list-group-item border-0 rounded-3 p-0 mb-2">
+                        <a href="{% url '__account_google_authenticate' %}"
+                           class="btn btn-info w-100 d-flex align-items-center justify-content-between">
+                            <i class="fa-brands fa-google">&nbsp;&nbsp;</i>
+                            <span>{{ _('continue_with_google') }}</span>
+                        </a>
+                    </li>
+                    <li class="list-group-item border-0 rounded-3 p-0 mb-2">
+                        <a href="{% url '__account_twitch_authenticate' %}"
+                           class="btn btn-info w-100 d-flex align-items-center justify-content-between">
+                            <i class="fa-brands fa-twitch">&nbsp;&nbsp;</i>
+                            <span>{{ _('continue_with_twitch') }}</span>
+                        </a>
+                    </li>
+                    <li class="list-group-item border-0 rounded-3 p-0 mb-2">
+                        <a href="{% url '__account_discord_authenticate' %}"
+                           class="btn btn-info w-100 d-flex align-items-center justify-content-between">
+                            <i class="fa-brands fa-discord">&nbsp;&nbsp;</i>
+                            <span>{{ _('continue_with_discord') }}</span>
+                        </a>
+                    </li>
+                </ul>
+                {% endif %}
+            </div>
+            <div class="col-sm-6 px-0 d-none d-sm-block">
+                <img src="{% static ac_app_name|add:'/images/loginRegister.webp' %}" loading="lazy" decoding="async"
+                     alt="{{ _('login_image') }}" class="w-100 vh-100"
+                     style="object-fit: cover; object-position: left;">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--Include Js-->
+{% include ac_app_name|add:'/layouts/js_section.html' %}
+
+</body>
+</html>

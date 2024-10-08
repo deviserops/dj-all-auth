@@ -1,0 +1,47 @@
+{% extends ac_app_name|add:'/auth/base.html' %}
+{% block content %}
+<h3 class="fw-normal mb-3">{{_('register')}}</h3>
+<form method="post" style="width: 23rem;" class="ajaxForm">
+    {% csrf_token %}
+
+    <!-- Register Error -->
+    {% if form.non_field_errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ form.non_field_errors }}
+    </div>
+    {% endif %}
+
+    <!-- Username -->
+    <div data-mdb-input-init class="form-outline mb-4">
+        <input type="text" id="id_username" name="username" autocomplete="username"
+               value="{{form.username.value|default_if_none:''}}" class="form-control"/>
+        <label class="form-label" for="id_username">{{ form.username.label }}</label>
+    </div>
+
+    <!-- Email -->
+    <div data-mdb-input-init class="form-outline mb-4">
+        <input type="email" id="id_email" name="email" value="{{form.email.value|default_if_none:''}}"
+               class="form-control"/>
+        <label class="form-label" for="id_email">{{ form.email.label }}</label>
+    </div>
+
+    <!-- Password -->
+    <div data-mdb-input-init class="form-outline mb-4">
+        <input type="password" id="id_password1" name="password1" autocomplete="new-password"
+               class="form-control"/>
+        <label class="form-label" for="id_password1">{{ form.password1.label }}</label>
+    </div>
+
+    <!-- Password Confirm -->
+    <div data-mdb-input-init class="form-outline mb-4">
+        <input type="password" id="id_password2" name="password2" autocomplete="new-password"
+               class="form-control"/>
+        <label class="form-label" for="id_password2">{{ form.password2.label }}</label>
+    </div>
+
+    <div class="pt-1 mb-4">
+        <button class="btn btn-info btn-block" type="submit">{{_('register')}}</button>
+    </div>
+
+</form>
+{% endblock %}
