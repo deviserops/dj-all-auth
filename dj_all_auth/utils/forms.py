@@ -16,9 +16,3 @@ class RegisterForm(UserCreationForm):
 
 class AccountActivateForm(forms.Form):
     email = forms.EmailField()
-
-
-class EditProfileForm(forms.Form):
-    first_name = forms.CharField(required=True, max_length=50)
-    last_name = forms.CharField(required=True, max_length=50)
-    email = forms.CharField(required=False, max_length=150)
