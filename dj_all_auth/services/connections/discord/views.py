@@ -101,6 +101,9 @@ class Authenticated(View):
 @method_decorator(decorator=login_required, name='dispatch')
 class UnAuthenticate(View):
     def get(self, request):
+        if not request.user.email:
+            messages.error(self.request, _('add_email_to_unlink_account'))
+            return redirect(REDIRECT_URI_NAME)
         discord = Discord()
         discord.revoke_token(request.user)
         return redirect(REDIRECT_URI_NAME)
