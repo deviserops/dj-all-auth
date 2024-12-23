@@ -1,0 +1,153 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-12-23 12:08+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: dj_all_auth/admin.py:14
+msgid "Personal info"
+msgstr "Personal info"
+
+#: dj_all_auth/admin.py:15
+msgid "Activation"
+msgstr "Activation"
+
+#: dj_all_auth/admin.py:16
+msgid "Important dates"
+msgstr "Important dates"
+
+#: dj_all_auth/base_models.py:10
+#: dj_all_auth/templates/dj_all_auth/auth/password_reset.html:3
+#: dj_all_auth/templates/dj_all_auth/auth/password_reset_confirm.html:3
+#: dj_all_auth/templates/dj_all_auth/auth/password_reset_confirm.html:31
+msgid "reset_password"
+msgstr "Reset password"
+
+#: dj_all_auth/base_models.py:11
+#: dj_all_auth/templates/dj_all_auth/auth/register.html:3
+#: dj_all_auth/templates/dj_all_auth/auth/register.html:43
+msgid "register"
+msgstr "Register"
+
+#: dj_all_auth/base_models.py:12
+#: dj_all_auth/templates/dj_all_auth/auth/login.html:33
+#: dj_all_auth/templates/dj_all_auth/auth/request_account_activation.html:3
+msgid "request_account_activation"
+msgstr "Request account activation"
+
+#: dj_all_auth/services/auth/views.py:37 dj_all_auth/services/auth/views.py:115
+msgid "active_your_account_with_email"
+msgstr "Active your account with email"
+
+#: dj_all_auth/services/auth/views.py:54 dj_all_auth/services/auth/views.py:109
+msgid "email_subject_active_request"
+msgstr "Activate your account"
+
+#: dj_all_auth/services/auth/views.py:75
+msgid "account_activated_can_login"
+msgstr "Account has been activated, you can login now"
+
+#: dj_all_auth/services/auth/views.py:77
+msgid "invalid_token"
+msgstr "Invalid token"
+
+#: dj_all_auth/services/auth/views.py:79
+msgid "no_user_found"
+msgstr "User not found"
+
+#: dj_all_auth/services/auth/views.py:82 dj_all_auth/services/auth/views.py:121
+msgid "something_went_wrong"
+msgstr "Something went wrong"
+
+#: dj_all_auth/services/auth/views.py:118
+msgid "account_with_email_not_exist"
+msgstr "Account with this email does not exist"
+
+#: dj_all_auth/services/connections/discord/Discord.py:151
+#: dj_all_auth/services/connections/google/Google.py:141
+#: dj_all_auth/services/connections/twitch/Twitch.py:147
+msgid "invalid_access"
+msgstr "Invalid access"
+
+#: dj_all_auth/services/connections/discord/views.py:77
+#: dj_all_auth/services/connections/google/views.py:78
+#: dj_all_auth/services/connections/twitch/views.py:78
+msgid "account_with_this_connection_already_exist"
+msgstr "Account with this connection already exist"
+
+#: dj_all_auth/services/connections/discord/views.py:105
+#: dj_all_auth/services/connections/google/views.py:106
+#: dj_all_auth/services/connections/twitch/views.py:106
+msgid "add_email_to_unlink_account"
+msgstr "Add email to unlink account"
+
+#: dj_all_auth/templates/dj_all_auth/auth/base.html:35
+msgid "continue_with_email"
+msgstr "Continue with email"
+
+#: dj_all_auth/templates/dj_all_auth/auth/base.html:43
+msgid "continue_with_google"
+msgstr "Continue with google"
+
+#: dj_all_auth/templates/dj_all_auth/auth/base.html:50
+msgid "continue_with_twitch"
+msgstr "Continue with twitch"
+
+#: dj_all_auth/templates/dj_all_auth/auth/base.html:57
+msgid "continue_with_discord"
+msgstr "Continue with discord"
+
+#: dj_all_auth/templates/dj_all_auth/auth/base.html:65
+msgid "login_image"
+msgstr "login_image"
+
+#: dj_all_auth/templates/dj_all_auth/auth/login.html:3
+#: dj_all_auth/templates/dj_all_auth/auth/login.html:28
+#: dj_all_auth/templates/dj_all_auth/auth/logout.html:4
+msgid "login"
+msgstr "Login"
+
+#: dj_all_auth/templates/dj_all_auth/auth/login.html:32
+msgid "forgot_password"
+msgstr "Forgot password"
+
+#: dj_all_auth/templates/dj_all_auth/auth/logout.html:3
+msgid "thank_you_for_using_our_services"
+msgstr "Thank you for using our services"
+
+#: dj_all_auth/templates/dj_all_auth/auth/logout.html:6
+msgid "send_me_to_website"
+msgstr "Send me to website"
+
+#: dj_all_auth/templates/dj_all_auth/auth/logout.html:6
+msgid "home"
+msgstr "Home"
+
+#: dj_all_auth/templates/dj_all_auth/auth/password_reset.html:19
+msgid "request_password_reset"
+msgstr "Request password reset"
+
+#: dj_all_auth/templates/dj_all_auth/auth/password_reset_complete.html:4
+msgid "reset_password_complete_message"
+msgstr "Reset password successful"
+
+#: dj_all_auth/templates/dj_all_auth/auth/password_reset_done.html:4
+msgid "reset_email_send_message"
+msgstr "An email has been send to your email address, please follow the instruction to reset your password"
+
+#: dj_all_auth/templates/dj_all_auth/auth/request_account_activation.html:12
+msgid "request_activation"
+msgstr "Request activation"
