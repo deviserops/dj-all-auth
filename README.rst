@@ -11,7 +11,7 @@ Demo Images:
 
     Login/Signup Page
 
-    .. image:: ./docs/images/login.png
+    .. image:: https://raw.githubusercontent.com/deviserops/dj-all-auth/refs/heads/master/docs/images/login.png
         :align: center
 
 Quick start
