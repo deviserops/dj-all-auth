@@ -4,15 +4,21 @@
 <form method="post" style="width: 23rem;" class="ajaxForm">
     {% csrf_token %}
     
+    {% if form.non_field_errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ form.non_field_errors }}
+    </div>
+    {% endif %}
+
     <!-- Request Account Error -->
-    {% if form.errors %}
+    {% if form.errors.email %}
     <div class="alert alert-danger" role="alert">
         {{ form.errors.email }}
     </div>
     {% endif %}
     
     <div data-mdb-input-init class="form-outline mb-4">
-        <input type="text" id="id_email" name="email" autocomplete="email" class="form-control"/>
+        <input type="text" id="id_email" name="email" autocomplete="email" class="form-control" value="{{form.email.value|default_if_none:''}}"/>
         <label class="form-label" for="id_email">{{ form.email.label }}</label>
     </div>
 
