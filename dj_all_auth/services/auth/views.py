@@ -1,5 +1,6 @@
 import logging
 
+from .. import is_ajax
 from . import auth_template
 from ...lib.Mail import Mail
 from ... import base_template
@@ -24,7 +25,10 @@ class Register(CreateView):
     success_url = '/'
 
     def form_invalid(self, form):
-        return JsonResponse({'status': False, 'errors': form.errors}, status=422)
+        if is_ajax(self.request):
+            return JsonResponse({'status': False, 'errors': form.errors}, status=422)
+        else:
+            return super().form_invalid(form)
 
     def form_valid(self, form):
         user = form.save(False)
@@ -35,7 +39,10 @@ class Register(CreateView):
         self.send_email(user)
 
         messages.success(self.request, _('active_your_account_with_email'))
-        return JsonResponse({'status': True, 'url': reverse('home')}, status=200)
+        if is_ajax(self.request):
+            return JsonResponse({'status': True, 'url': reverse('home')}, status=200)
+        else:
+            return redirect('home')
 
     def send_email(self, user):
         # Send Account activation mail
@@ -88,7 +95,10 @@ class ActivateRequest(FormView):
     template_name = auth_template + '/request_account_activation.html'
 
     def form_invalid(self, form):
-        return JsonResponse({'status': False, 'errors': form.errors}, status=422)
+        if is_ajax(self.request):
+            return JsonResponse({'status': False, 'errors': form.errors}, status=422)
+        else:
+            return super().form_invalid(form)
 
     def form_valid(self, form):
         data = form.cleaned_data
