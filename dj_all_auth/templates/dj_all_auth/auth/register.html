@@ -5,9 +5,9 @@
     {% csrf_token %}
 
     <!-- Register Error -->
-    {% if form.non_field_errors %}
+    {% if form.errors %}
     <div class="alert alert-danger" role="alert">
-        {{ form.non_field_errors }}
+        {{ form.errors }}
     </div>
     {% endif %}
 
