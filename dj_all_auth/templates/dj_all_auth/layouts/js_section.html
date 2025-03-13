@@ -13,6 +13,10 @@
 <script type="text/javascript" src="{% static ac_app_name|add:'/notify/js/notify.js' %}" onload="show_noty()"
         defer></script>
 
+{% for js_item in ac_js_list %}
+<script type="text/javascript" src="{{ js_item }}" defer></script>
+{% endfor %}
+
 
 <script>
     function show_noty(){

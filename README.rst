@@ -46,6 +46,8 @@ Quick start
     DJ_ALL_AUTH = {
         # static path of logo image
         'LOGO': None,
+        'CSS': {},
+        'JS': {},
         'CONNECTIONS': {
             # name of the url that will be used once OAuth is completed
             'REDIRECT_URI_NAME': None,
