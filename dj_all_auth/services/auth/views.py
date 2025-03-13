@@ -100,7 +100,7 @@ class ActivateRequest(FormView):
         else:
             return super().form_invalid(form)
 
-        def form_valid(self, form):
+    def form_valid(self, form):
         data = form.cleaned_data
         try:
             user = get_user_model().objects.filter(email=data.get('email'), is_active=False).first()
