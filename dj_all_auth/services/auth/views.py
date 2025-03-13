@@ -100,32 +100,37 @@ class ActivateRequest(FormView):
         else:
             return super().form_invalid(form)
 
-    def form_valid(self, form):
+        def form_valid(self, form):
         data = form.cleaned_data
         try:
             user = get_user_model().objects.filter(email=data.get('email'), is_active=False).first()
-            if user:
-                token_generator = TokenGenerator()
-                token_info = token_generator.generate_token(user)
-                link = reverse("__activate_account",
-                               kwargs={"uidb64": token_info.get('uidb64'), "token": token_info.get('token')})
-                context = {
-                    'link': link,
-                    'user': user
-                }
-                context.update(default_context(self.request))
-                text_content = get_template(f'{base_template}/mail/activate_request/mail.text').render(context)
-                args = {
-                    'subject': _('email_subject_active_request'),
-                    'to': [user.email],
-                    'text_content': text_content,
-                }
-                Mail(multipart=True).send_mail(args)
+            if not user:
+                form.add_error(None, _('account_with_email_not_exist'))
+                return self.form_invalid(form)
 
-                messages.info(self.request, _('active_your_account_with_email'))
+            token_generator = TokenGenerator()
+            token_info = token_generator.generate_token(user)
+            link = reverse("__activate_account",
+                           kwargs={"uidb64": token_info.get('uidb64'), "token": token_info.get('token')})
+            context = {
+                'link': link,
+                'user': user
+            }
+            context.update(default_context(self.request))
+            text_content = get_template(f'{base_template}/mail/activate_request/mail.text').render(context)
+            args = {
+                'subject': _('email_subject_active_request'),
+                'to': [user.email],
+                'text_content': text_content,
+            }
+            Mail(multipart=True).send_mail(args)
+
+            messages.info(self.request, _('active_your_account_with_email'))
+            if is_ajax(self.request):
                 return JsonResponse({'status': True, 'url': reverse('login')}, status=200)
             else:
-                return JsonResponse({'status': False, 'message': _('account_with_email_not_exist')}, status=422)
+                return redirect('login')
         except Exception as e:
             logging.error(e)
-            return JsonResponse({'status': False, 'message': _('something_went_wrong')}, status=422)
+            form.add_error(None, _('something_went_wrong'))
+            return self.form_invalid(form)
