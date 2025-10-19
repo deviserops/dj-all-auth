@@ -59,11 +59,21 @@ Quick start
 
     python manage.py migrate
 
-8. Now you can simply hit the login url and All Done, you will be logged in using appropriate requested connection.
+8. Now you can simply hit the login url and All Done, you will be logged in using appropriate requested connection.::
+
+    For ex: `connection/google/authenticate` and you will be redirect to login page for google.
+
+
 
 Test, Build and upload.:
-------
+------------------------
+
 
 - `python -m build`
 - `pip install --user django-all-auth/dist/path_to.tar.gz` To run on local
+- `============================`
+- First Test Upload
+- `python3 -m twine upload --repository testpypi dist/*`
+- `============================`
+- Then Live Upload
 - `twine upload dist/* --verbose`
